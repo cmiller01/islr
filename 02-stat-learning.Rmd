@@ -1,0 +1,14 @@
+---
+author: "Christian"
+date: "January 5, 2017"
+output:
+  github_document:
+    toc: true
+    html_preview: false
+---
+
+# Statistical Learning {#stat-learning}
+
+## Notes
+
+## Exercises
