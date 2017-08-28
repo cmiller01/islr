@@ -60,8 +60,14 @@ Think of real-life applications for statistical learning, describe response & pr
 
 1.  For classification:
 
--   bcd
+-   Predicting who will purchase a product: response ~ conversions, predictors ~ demographics (age, sex, location) + behavior (clicks/views of site, usage of other products, etc.). Goal is inference to better target
+-   Predicting who will click on an ad: response ~ conversions, predictors ~ similar to above, but goal is just prediction to better deliver advertising, additional features could be added even if they don't help intuition
+-   Medical Diagnosis: response ~ disease/not disease, predictors ~ depending on domain, but could be demographics, behavior (e.g. diet, exercise), test results (e.g. cholesterol levels), goal is prediction as simply trying to deliver an accurate diagnosis
 
 1.  Ibid, regression
 
-2.  Cluster-analysis
+-   Forecasting sales of watermelons: response ~ sales, predictors ~ temperature, date (seasonality effects), price of product. Goal is inference to better understand consumer demand so product isn't wasted or short of supply and promotions can be planned.
+-   Predicting tax liability for IRS: response ~ tax owed, predictors ~ features from 1040, other tax forms, history of prior tax filings. Goal is prediction, can regress predicted tax liability against actual to determine when/if to launch an audit
+-   Predicting score of basketball game: response ~ final score, predictors ~ team features (wins, losses, margins, etc.), player info like injuries, starting lineup. Goal is prediction for purposes of gambling.
+
+1.  Cluster-analysis
