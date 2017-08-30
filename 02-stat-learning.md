@@ -71,3 +71,65 @@ Think of real-life applications for statistical learning, describe response & pr
 -   Predicting score of basketball game: response ~ final score, predictors ~ team features (wins, losses, margins, etc.), player info like injuries, starting lineup. Goal is prediction for purposes of gambling.
 
 1.  Cluster-analysis
+
+-   Finding similar groups of people to those who are currently customers to target for marketing
+-   Identifying characteristics of different pathologies, e.g. tumorous cells have a bunch of different gene markers, what other cells have similar markers?
+-   Exploratory analysis to understand what features might be important/relevant in constructing a model
+
+**Question 5**
+
+What are the advantages and disadvantages of a very flexible (vs less flexible) approach for regression or classification? Under what circumstances might a more flexible approach be preferred?
+
+A more flexible approach (often) has the benefit of being a better fitting model (ie less bias), meaning better predictions. However, there can be some disadvantages if that model becomes very complex and less generalizeable AND potentially it is prone to overfitting. A more flexible approach may be preferred when there is a greater emphasis on predictive performance vs model inference, when there is ample data (to prevent overfitting) and if the behavior being modeled is complex, so that a less flexible model wouldn't be a good representation.
+
+**Question 6**
+
+Describe the differences between a parametric and non-parametric statistical learning approach. What are the advantages/disadvantages (vs non-parametric)?
+
+A parametric learning approach means that a functional form for a model is specified to describe the relationship, then parameters of that model are estimated given the training data. By contrast a non-parametric approach don't make any assumptions about the form/model of the relationship and try to estimate some function that fits the data as closely as possible. The benefits of a parametric approach are that the model is generally more interpretable, giving more inferential power, and that it may be more generalizeable; however parametric approaches may not be able to fit the data as well and cannot necessarily fit to more complex functions.
+
+**Question 7**
+
+The table below provides a training data set containting six observations, three predictors and one qualitative response variable.
+
+``` r
+tmp <- data.frame(x1=c(0,2,0,0,-1,1),x2=c(3,0,1,1,0,1),x3=c(0,0,3,2,1,1),y=c('Red','Red','Red','Green','Green','Red'))
+tmp
+```
+
+    ##   x1 x2 x3     y
+    ## 1  0  3  0   Red
+    ## 2  2  0  0   Red
+    ## 3  0  1  3   Red
+    ## 4  0  1  2 Green
+    ## 5 -1  0  1 Green
+    ## 6  1  1  1   Red
+
+Suppose we wish to use this data set to make a prediction for *Y* when X1 = X2 = X3 = 0 using K-nearest neighbors.
+
+1.  Compute the Euclidean distance between each observation and the test point, X1 = X2 = X3 = 0
+
+``` r
+tmp$distance <- ((tmp$x1 - 0)^2 + (tmp$x2 - 0)^2 + (tmp$x3 - 0)^2)^(1/2)
+tmp
+```
+
+    ##   x1 x2 x3     y distance
+    ## 1  0  3  0   Red 3.000000
+    ## 2  2  0  0   Red 2.000000
+    ## 3  0  1  3   Red 3.162278
+    ## 4  0  1  2 Green 2.236068
+    ## 5 -1  0  1 Green 1.414214
+    ## 6  1  1  1   Red 1.732051
+
+1.  What is our prediction with K=1? Why?
+
+Our prediction is `Green` because that is the single closest observation (distance of 1.414)
+
+1.  What is our prediction with K=3? Why?
+
+Prediction of `Red` because our closes observations are 2, 5 and 6 which are `Red`, `Green` and `Red` thus by simple majority we go with `Red`
+
+1.  If the Bayes decision boundary in this problem is highly non-linear then would we expect the *best* value for K to be large or small? Why?
+
+Small K because the decision boundary needs to be very flexible to accomidate the non-linearity; a large K would produce a less flexible model that is unlikely to fit the complex data well.
