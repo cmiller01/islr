@@ -110,5 +110,71 @@ d) If the Bayes decision boundary in this problem is highly non-linear then woul
 
 Small K because the decision boundary needs to be very flexible to accomidate the non-linearity; a large K would produce a less flexible model that is unlikely to fit the complex data well.
 
+### Applied
 
+__Question 8__
 
+Use `College` data set...walkthough questions/directions
+
+```{r ch2_q7}
+# part a load data
+college <- read.csv("http://www-bcf.usc.edu/~gareth/ISL/College.csv")
+
+# part b rename rows
+# inspect data (not run in script)
+# fix(college)
+
+# change rownames
+rownames(college) <- college[,1]
+
+# drop the names column
+college <- college[,-1]
+
+# part c start summarizing
+# i. summary
+summary(college)
+
+# ii. plot pairwise
+pairs(college[,1:10])
+
+# iii. boxplot Outstate vs Private
+plot(college$Private,college$Outstate)
+
+# iv. new qualitative variable
+Elite <- rep("No",nrow(college))
+Elite[college$Top10perc>50] <- "Yes"
+Elite <- as.factor(Elite)
+college <- data.frame(college,Elite)
+
+summary(Elite)
+
+plot(college$Elite,college$Outstate)
+
+# v. histograms
+par(mfrow=c(2,2))
+
+hist(college$F.Undergrad)
+hist(college$Personal,breaks="Scott")
+hist(college$Grad.Rate,breaks="FD")
+hist(college$Outstate,breaks=10)
+
+# vi. continue to explore the data...
+# just using base functions described thus far
+college$Acceptance.Rate <- college$Accept / college$Apps
+
+college$Perc.ExpendOutstate <- college$Expend / college$Outstate
+
+# elite stuff
+par(mfrow=c(2,2))
+plot(college$Elite,college$Acceptance.Rate)
+plot(college$Elite,college$perc.alumni)
+plot(college$Elite,college$Perc.ExpendOutstate)
+plot(college$Elite,college$Grad.Rate)
+
+```
+
+Summary of further analysis:
+
+  * Further exploration of "elite" colleges shows that they have a substantially lower acceptance rate (median of `r median(college[college$Elite=="Yes","Acceptance.Rate"])` vs `r median(college[college$Elite=="No","Acceptance.Rate"])` for non-elite).
+  * Alumni of elite schools appear to be more likely to donate to their schools and they also have higher graduation rates.
+  * Note there is an outlier in the graduation rate for `r row.names(college[(college$Grad.Rate>100),])` which had a graduation rate over 100%, which leads to some questions about how the data was generated.
