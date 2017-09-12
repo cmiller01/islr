@@ -2,9 +2,8 @@
 author: "Christian"
 date: "January 5, 2017"
 output:
-  github_document:
+  pdf_document:
     toc: true
-    html_preview: false
 ---
 
 # Statistical Learning {#stat-learning}
@@ -118,7 +117,8 @@ Use `College` data set...walkthough questions/directions
 
 ```{r ch2_q7}
 # part a load data
-college <- read.csv("http://www-bcf.usc.edu/~gareth/ISL/College.csv")
+# previously downloaded file from http://www-bcf.usc.edu/~gareth/ISL/College.csv
+college <- read.csv(file='datasets/College.csv')
 
 # part b rename rows
 # inspect data (not run in script)
@@ -178,3 +178,54 @@ Summary of further analysis:
   * Further exploration of "elite" colleges shows that they have a substantially lower acceptance rate (median of `r median(college[college$Elite=="Yes","Acceptance.Rate"])` vs `r median(college[college$Elite=="No","Acceptance.Rate"])` for non-elite).
   * Alumni of elite schools appear to be more likely to donate to their schools and they also have higher graduation rates.
   * Note there is an outlier in the graduation rate for `r row.names(college[(college$Grad.Rate>100),])` which had a graduation rate over 100%, which leads to some questions about how the data was generated.
+
+__Question 9__
+
+```{r ch2_q9}
+# previously downloaded from: 
+Auto <- read.csv(file='datasets/Auto.csv')
+# TODO
+```
+
+
+__Question 10__
+
+a) Rows/columns/describe data
+
+`r library(MASS)`
+
+The `Boston` dataset has `r nrow(Boston)` rows and `r ncol(Boston)` columns. Each row represents a town with the different columns indicating different conditions of the area like crime, values, density, location, etc.
+
+b) Make some pairwise scatterplots and describe your findings
+
+```{r ch2_q10_b}
+pairs(Boston,upper.panel = NULL)
+```
+
+Observations:
+  * There are a number of predictors that have no few suggestive relationships, for example the impact of the "charles river" dummy is mixed. `zn`, `indus`, `tax` and `ptratio` are also a bit ambiguous against most variables.
+  * However, there are a number of potentially meaningful relationships here:
+    * The `chas` variable is suggestive that crime is low when on the river (the converse is not necessarily the case, some towns have high crime, some low if NOT on the river)
+    * Crime is higher overall as distance to employment centers decreases
+    * High value home areas are generally low crime
+    * There is a positive correlation between industrial percentage and nox concentration
+    * Nox concentrations are also much higher as `dis` decreases, also it appears to be slightly negatively correlated with median home values
+    * There's a strong negative relationship between `lstat` ie income and median value of the homes.
+    
+c) Predictors associated with crime rate?
+
+  * As mentioned above the Charles River variable, distance from employment centers, as well as a negative relationship between crime and median home value
+  
+d) Suburbs of Boston with high crime rates/tax rates/etc. comment on range of each predictor
+
+```{r ch2_q10_d}
+apply(Boston,2,range)
+
+apply(Boston,2,quantile,probs=c(0.1,0.25,0.5,0.75,0.9))
+```
+Most of these values have a broad range of values, however they are largely clumped around 
+
+
+e) Suburbs bound the Charles River: `r sum(Boston$chas)`
+
+f) Median pupil-teacher ratio: `r median

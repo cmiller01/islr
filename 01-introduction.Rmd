@@ -2,12 +2,12 @@
 author: "Christian"
 date: "January 5, 2017"
 output:
-  github_document:
+  pdf_document:
     toc: true
-    html_preview: false
 ---
 
 # Introduction {#intro}
+
 My notes and solutions/attempts for G. James et al., _An Introduction to Statistical Learning: with Applications in R_
 
 Book website: http://www-bcf.usc.edu/~gareth/ISL/

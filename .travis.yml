@@ -1,0 +1,3 @@
+language: r
+cache: packages
+script: ./build_docs.sh
